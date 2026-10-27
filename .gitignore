@@ -3,3 +3,4 @@ dist/
 .sites/
 *.tar.gz
 *.tsbuildinfo
+.openai/
