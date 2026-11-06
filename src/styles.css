@@ -1012,6 +1012,12 @@ textarea {
   -webkit-appearance: none;
   appearance: none;
   box-shadow: none;
+  outline: none;
+  outline-offset: 0;
+}
+#contact input:focus,
+#contact textarea:focus {
+  border-color: #6a7d93;
 }
 input::placeholder,
 textarea::placeholder {
