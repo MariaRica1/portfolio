@@ -1005,6 +1005,14 @@ textarea {
   resize: vertical;
   color: #0a1f44;
 }
+#contact input,
+#contact textarea,
+#contact input:focus,
+#contact textarea:focus {
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: none;
+}
 input::placeholder,
 textarea::placeholder {
   color: #8798ac;
