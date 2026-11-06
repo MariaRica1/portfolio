@@ -54,8 +54,8 @@ export const projects = [
     tests: 'Cross-module validation',
     type: 'inventory',
     areas: ['Accounts Payable', 'Accounts Receivable', 'Inventory', 'Reports'],
-    focus: ['Date pickers', 'Item tables', 'Paginated lookups'],
-    methods: ['Positive cases', 'Negative cases', 'Boundary cases', 'Edge cases'],
+    focus: ['Date pickers', 'Item tables', 'Paginated lookups', 'Sidebar'],
+    methods: ['Positive cases', 'Negative cases', 'Functional cases', 'Edge cases'],
     details: [
       'Created and executed test cases for Accounts Payable, Accounts Receivable, Inventory, and Reports.',
       'Validated required fields, item selection, status transitions, transaction calculations, and cross-module workflows.',
