@@ -1,1 +1,19 @@
-export default { content: ['./index.html', './src/**/*.{ts,tsx}'], theme: { extend: { colors: { navy: '#0A1F44', electric: '#1A73E8', cyan: '#00D4FF', steel: '#6A7D93', cloud: '#F8FAFD' }, fontFamily: { sans: ['Inter','sans-serif'], mono: ['Fira Code','monospace'] } } }, plugins: [] };
+export default {
+    content: ['./index.html', './src/**/*.{ts,tsx}'],
+    theme: {
+        extend: {
+            colors: {
+                navy: '#0A1F44',
+                electric: '#1A73E8',
+                cyan: '#00D4FF',
+                steel: '#6A7D93',
+                cloud: '#F8FAFD'
+            },
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                mono: ['Fira Code', 'monospace']
+            }
+        }
+    },
+    plugins: []
+};
