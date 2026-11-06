@@ -16,94 +16,13 @@ import {
   Terminal,
   Layers,
   Braces,
-  Play,
   RotateCcw,
   Mail,
   ChevronDown,
 } from "lucide-react";
 import "./styles.css";
+import { profile, projects, skills, experience } from "./portfolio";
 
-const projects = [
-  {
-    title: "E-Commerce Test Automation Suite",
-    category: "Automation",
-    description:
-      "Reliable shopping journeys. From the first product click to a successful checkout.",
-    tags: ["Playwright", "TypeScript", "GitHub Actions"],
-    tests: "128 test cases",
-    type: "commerce",
-    details: [
-      "End-to-end checkout, search, and cart scenarios across browsers.",
-      "Reusable page objects, isolated test data, and CI regression runs.",
-      "Sample outcome: 95% critical-journey coverage.",
-    ],
-  },
-  {
-    title: "Enterprise HR & Payroll Validation",
-    category: "Functional",
-    description:
-      "Getting the details right where they matter most: people, payroll, and precision.",
-    tags: ["SQL", "Jira", "Manual Testing"],
-    tests: "86 test cases",
-    type: "payroll",
-    details: [
-      "Role-based access, employee lifecycle, and payroll workflows.",
-      "Boundary checks for deductions and salary calculations.",
-      "Database reconciliation and traceable defect documentation.",
-    ],
-  },
-  {
-    title: "SIMS Inventory & Tax Logic Testing",
-    category: "API & Database",
-    description:
-      "A closer look at inventory integrity, transaction accuracy, and tax calculations.",
-    tags: ["API Testing", "SQL", "Postman"],
-    tests: "64 test cases",
-    type: "inventory",
-    details: [
-      "API contract validation for stock movements and transactions.",
-      "SQL verification of inventory balances and calculated totals.",
-      "Rounding, zero-value, and boundary scenarios for tax logic.",
-    ],
-  },
-];
-const skills = [
-  {
-    icon: Code2,
-    title: "Test automation",
-    body: "Scalable, maintainable tests that make every release more confident.",
-    code: "await expect(page).toHaveTitle(/Ready/);",
-    tags: "Playwright · TypeScript",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Manual & functional",
-    body: "Thoughtful exploration. Clear test cases. No detail left behind.",
-    code: "Given → When → Then",
-    tags: "Exploratory testing · Jira",
-  },
-  {
-    icon: Braces,
-    title: "API testing",
-    body: "Validate the contracts and connections behind every experience.",
-    code: "expect(response.status()).toBe(200);",
-    tags: "Postman · REST APIs",
-  },
-  {
-    icon: Database,
-    title: "Database verification",
-    body: "Follow the data. Verify accuracy, integrity, and business logic.",
-    code: "SELECT accuracy FROM transactions;",
-    tags: "SQL · Data validation",
-  },
-  {
-    icon: GitBranch,
-    title: "CI/CD pipelines",
-    body: "Build quality into the pipeline, from commit to deployment.",
-    code: "commit → build → test → release",
-    tags: "GitHub Actions · Git",
-  },
-];
 function Brand() {
   return (
     <a href="#about" className="brand" aria-label="Maria Rica Valenzuela, home">
@@ -111,7 +30,7 @@ function Brand() {
         <img src="/logo.png" alt="" />
       </span>
       <span>
-        Maria Rica Valenzuela
+        {profile.name}
         <span className="brand-role">SOFTWARE QA ENGINEER</span>
       </span>
     </a>
@@ -232,80 +151,20 @@ function TestConsole() {
   );
 }
 function ProjectVisual({ type }: { type: string }) {
-  return (
-    <div className={"project-visual " + type}>
-      {type === "commerce" ? (
-        <div className="mini-browser">
-          <div className="mini-toolbar">
-            <span>● ● ●</span>
-            <small>store / checkout.spec.ts</small>
-            <Check size={12} />
-          </div>
-          <div className="commerce-body">
-            <div className="product-placeholder">
-              <Layers size={33} />
-            </div>
-            <div>
-              <small>CHECKOUT VALIDATION</small>
-              <div className="skeleton long" />
-              <div className="skeleton" />
-              <div className="mini-success">
-                <Check size={11} /> All assertions passed
-              </div>
-            </div>
-          </div>
-          <div className="visual-bottom">
-            <span>chromium</span>
-            <span>✓ 128 / 128</span>
-          </div>
-        </div>
-      ) : type === "payroll" ? (
-        <div className="payroll-window">
-          <div className="mini-toolbar">
-            <span>
-              <Database size={13} /> payroll_validation
-            </span>
-            <small>SQL</small>
-          </div>
-          <div className="table-head">
-            <span>employee_id</span>
-            <span>net_pay</span>
-            <span>status</span>
-          </div>
-          {["EMP_001", "EMP_002", "EMP_003"].map((v, i) => (
-            <div className="table-row" key={v}>
-              <span>{v}</span>
-              <span>{["28,450.00", "32,100.00", "26,750.00"][i]}</span>
-              <CheckCheck size={14} />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="api-window">
-          <div className="api-url">
-            <b>GET</b>
-            <span>/api/v1/inventory</span>
-            <em>200 OK</em>
-          </div>
-          <pre>
-            {"{\n"} <span className="code-cyan">"status"</span>:{" "}
-            <span className="code-green">"verified"</span>,{"\n"}{" "}
-            <span className="code-cyan">"stock_integrity"</span>:{" "}
-            <span className="code-orange">true</span>,{"\n"}{" "}
-            <span className="code-cyan">"tax_accuracy"</span>:{" "}
-            <span className="code-orange">100</span>
-            {"\n}"}
-          </pre>
-        </div>
-      )}
+  const project = projects.find(p => p.type === type)!;
+  return <div className={'project-visual ' + type} aria-hidden="true">
+    <div className="scope-window">
+      <div className="scope-toolbar"><Layers size={13}/><span>{project.shortName.toLowerCase()} / testing focus</span></div>
+      {project.areas.slice(0, 4).map((area, i) => <div className="scope-row" key={area}><span>0{i + 1}</span><span>{area}</span><ShieldCheck size={12}/></div>)}
+      <div className="scope-caption">BUSINESS RULES · WORKFLOWS · VALIDATION</div>
     </div>
-  );
+  </div>;
 }
 function App() {
   const [menu, setMenu] = useState(false),
     [filter, setFilter] = useState("All projects"),
     [selected, setSelected] = useState<number | null>(null),
-    [metric, setMetric] = useState("E-Commerce"),
+    [metric, setMetric] = useState("HRIS"),
     [notice, setNotice] = useState(""),
     [active, setActive] = useState("about");
   const dialog = useRef<HTMLDialogElement>(null);
@@ -323,20 +182,12 @@ function App() {
   useEffect(() => {
     if (selected !== null) dialog.current?.showModal();
   }, [selected]);
-  const social = (name: string) =>
-    window.open(
-      name === "GitHub"
-        ? "https://github.com/MariaRica1"
-        : "https://ph.linkedin.com/in/maria-rica-valenzuela-176672285",
-      "_blank",
-      "noopener,noreferrer"
-    );
-  const numbers =
-    metric === "E-Commerce"
-      ? ["95%", "24", "3.2×"]
-      : metric === "HR & Payroll"
-      ? ["92%", "18", "2.5×"]
-      : ["97%", "16", "2.8×"];
+  const scopeProject = projects.find(p => p.shortName === metric)!;
+  const scopeStats = [
+    { title: 'Workflow areas', value: scopeProject.areas.length, desc: scopeProject.areas.join(' · '), icon: Layers },
+    { title: metric === 'Inventory' ? 'Reusable components' : 'Validation focus', value: scopeProject.focus.length, desc: scopeProject.focus.join(' · '), icon: ShieldCheck },
+    { title: metric === 'Recruitment' ? 'Testing methods' : metric === 'Inventory' ? 'Case design approaches' : 'QA activities', value: scopeProject.methods.length, desc: scopeProject.methods.join(' · '), icon: CheckCheck },
+  ];
   return (
     <>
       <header>
@@ -350,7 +201,8 @@ function App() {
               ["about", "About"],
               ["expertise", "Expertise"],
               ["projects", "Projects"],
-              ["metrics", "Test Metrics"],
+              ["experience", "Experience"],
+              ["metrics", "Testing Scope"],
               ["contact", "Contact"],
             ].map(([id, label]) => (
               <a
@@ -393,26 +245,20 @@ function App() {
               </span>
             </h1>
             <p>
-              I’m Maria Rica. I turn complex requirements into
-              <br className="wide-break" /> reliable experiences through
-              thoughtful manual testing,
-              <br className="wide-break" /> smart automation, and a detail-first
-              mindset.
+              I’m Maria Rica, a Software Quality Assurance professional testing
+              HRIS, recruitment, and inventory systems. I combine manual testing,
+              clear documentation, and Playwright automation with TypeScript to
+              validate business rules and resolve defects.
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#projects">
                 Explore projects <ArrowUpRight size={17} />
               </a>
-              <button
-                className="button secondary"
-                onClick={() => social("GitHub")}
-              >
-                <Github size={17} /> View GitHub
-              </button>
+              <a className="button secondary" href={profile.github} target="_blank" rel="noopener noreferrer"><Github size={17}/> View GitHub</a>
             </div>
             <div className="hero-meta">
-              <span className="status-dot" /> Open to meaningful opportunities{" "}
-              <span className="meta-divider" /> Based in the Philippines
+              <span className="status-dot" /> SQA at Intellismart Technology, Inc.
+              <span className="meta-divider" /> Quezon City, Philippines
             </div>
           </div>
           <TestConsole />
@@ -427,13 +273,13 @@ function App() {
               TS <b>TypeScript</b>
             </span>
             <span>
-              <Braces /> Postman
+              <Braces /> VS Code
             </span>
             <span>
               <Database /> SQL
             </span>
             <span>
-              <GitBranch /> GitHub Actions
+              <GitBranch /> Agile / Scrum
             </span>
             <span>
               <Layers /> Jira
@@ -486,22 +332,23 @@ function App() {
                 <div className="eyebrow">02 / SELECTED PROJECTS</div>
                 <h2>Putting quality into practice.</h2>
               </div>
-              <span className="sample-label">ILLUSTRATIVE CASE STUDIES</span>
+              <span className="sample-label">PROFESSIONAL PROJECT EXPERIENCE</span>
             </div>
             <div className="project-filters" aria-label="Filter projects">
               {[
                 "All projects",
                 "Automation",
                 "Functional",
-                "API & Database",
+                "End-to-End",
               ].map((f) => (
                 <button
                   key={f}
                   className={filter === f ? "selected" : ""}
+                  aria-pressed={filter === f}
                   onClick={() => setFilter(f)}
                 >
                   {f}
-                  {f === "All projects" && <span>03</span>}
+                  {f === "All projects" && <span>{String(projects.length).padStart(2, "0")}</span>}
                 </button>
               ))}
             </div>
@@ -543,66 +390,42 @@ function App() {
             </div>
           </div>
         </section>
+        <section id="experience" className="section-shell experience-section">
+          <div className="section-heading"><div><div className="eyebrow">03 / EXPERIENCE & EDUCATION</div><h2>A foundation in hands-on QA.</h2></div><p>Working with developers and stakeholders<br/>to turn requirements into tested workflows.</p></div>
+          <div className="experience-layout"><div className="experience-timeline">{experience.map(role => <article className="experience-item" key={role.company}>
+            <div className="role-heading"><div><h3>{role.title}</h3><p className="company-name">{role.company}</p></div>{role.current && <span className="current-badge">Current role</span>}</div>
+            <p className="role-period">{role.period}</p><ul>{role.points.map(point => <li key={point}><Check size={14}/><span>{point}</span></li>)}</ul>
+          </article>)}</div><aside className="education-card"><div className="eyebrow">EDUCATION</div><h3>Bachelor of Science in Information Technology</h3><p className="school-name">Mindoro State University</p><div className="education-divider"/><span className="award-label"><ShieldCheck size={17}/> Best in Capstone Project</span><h4>e-LogMo</h4><p>An IoT-Based River Water Level and Weather Monitoring System with Mobile Notification.</p><div className="education-divider"/><div className="eyebrow">ADDITIONAL SKILLS</div><div className="project-tags">{['HTML', 'CSS', 'Basic Web Development', 'Microsoft Office'].map(skill => <span key={skill}>{skill}</span>)}</div></aside></div>
+        </section>
         <section id="metrics" className="section-shell metrics-section">
           <div className="metrics-card">
             <div className="metrics-heading">
               <div>
-                <div className="eyebrow">03 / QUALITY IN NUMBERS</div>
-                <h2>Small details. Measurable impact.</h2>
+                <div className="eyebrow">04 / TESTING SCOPE</div>
+                <h2>A closer look at the testing scope.</h2>
               </div>
               <label className="metric-select">
-                <span className="sr-only">Select sample project</span>
+                <span className="sr-only">Select project testing scope</span>
                 <select
                   value={metric}
                   onChange={(e) => setMetric(e.target.value)}
                 >
-                  {["E-Commerce", "HR & Payroll", "SIMS Inventory"].map((v) => (
+                  {projects.map((p) => p.shortName).map((v) => (
                     <option key={v}>{v}</option>
                   ))}
                 </select>
                 <ChevronDown size={14} />
               </label>
             </div>
-            <div className="metrics-grid">
-              {[
-                {
-                  title: "Test coverage",
-                  desc: "Critical user journeys covered",
-                  icon: ShieldCheck,
-                },
-                {
-                  title: "Critical bugs caught",
-                  desc: "Before reaching production",
-                  icon: CheckCheck,
-                },
-                {
-                  title: "Faster regression",
-                  desc: "Compared to manual execution",
-                  icon: Play,
-                },
-              ].map((m, i) => (
-                <div className="metric" key={m.title}>
-                  <m.icon size={20} />
-                  <strong key={metric}>{numbers[i]}</strong>
-                  <h3>{m.title}</h3>
-                  <p>{m.desc}</p>
-                  {i === 0 && (
-                    <div className="coverage-bar">
-                      <span style={{ width: numbers[0] }} />
-                    </div>
-                  )}
-                </div>
-              ))}
+            <div className="metrics-grid" aria-live="polite">
+              {scopeStats.map(stat => <div className="metric" key={stat.title}><stat.icon size={20}/><strong key={metric}>{stat.value}</strong><h3>{stat.title}</h3><p>{stat.desc}</p></div>)}
             </div>
-            <div className="metrics-note">
-              <span className="tiny-dot" /> Illustrative metrics from sample
-              projects. Select a project to explore.
-            </div>
+            <div className="metrics-note"><span className="tiny-dot"/> Counts summarize the scope described in my résumé. Select a project to explore.</div>
           </div>
         </section>
         <section id="contact" className="section-shell contact-section">
           <div className="contact-copy">
-            <div className="eyebrow">04 / LET’S CONNECT</div>
+            <div className="eyebrow">05 / LET’S CONNECT</div>
             <h2>
               Great software starts
               <br />
@@ -614,28 +437,29 @@ function App() {
               I’d love to hear about it.
             </p>
             <div className="social-links">
-              <button onClick={() => social("LinkedIn")}>
-                <Linkedin size={18} /> LinkedIn <ArrowUpRight size={14} />
-              </button>
-              <button onClick={() => social("GitHub")}>
-                <Github size={18} /> GitHub <ArrowUpRight size={14} />
-              </button>
+              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin size={18}/> LinkedIn <ArrowUpRight size={14}/></a>
+              <a href={profile.github} target="_blank" rel="noopener noreferrer"><Github size={18}/> GitHub <ArrowUpRight size={14}/></a>
             </div>
             <div className="contact-note">
               <Mail size={17} />
               <span>
-                A little curiosity goes a long way.
+                <a href={'mailto:' + profile.email}>{profile.email}</a>
                 <br />
-                Let’s see what we can build.
+                {profile.location}
               </span>
             </div>
           </div>
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              setNotice(
-                "Thanks for your interest! This frontend demo does not send messages yet. Connect an email or form service before publishing publicly."
-              );
+              const data = new FormData(e.currentTarget);
+              const name = String(data.get('name') ?? '').trim();
+              const email = String(data.get('email') ?? '').trim();
+              const message = String(data.get('message') ?? '').trim();
+              const subject = encodeURIComponent('Portfolio inquiry from ' + name);
+              const body = encodeURIComponent(message + '\n\nFrom: ' + name + '\nReply to: ' + email);
+              window.location.href = 'mailto:' + profile.email + '?subject=' + subject + '&body=' + body;
+              setNotice('An email draft has been requested in your email app. Review it and send it there. If it does not open, email ' + profile.email + ' directly.');
             }}
           >
             <div className="form-row">
@@ -673,18 +497,18 @@ function App() {
             <div className="form-bottom">
               <span>Let’s make something dependable.</span>
               <button type="submit" className="button primary">
-                Send message <ArrowUpRight size={16} />
+                Open email draft <ArrowUpRight size={16} />
               </button>
             </div>
             <p className="form-demo">
-              Demo form · messages are not transmitted.
+              Opens your email app with a draft. Review and send it there.
             </p>
           </form>
         </section>
       </main>
       <footer className="section-shell">
         <Brand />
-        <span>© {new Date().getFullYear()} Maria Rica Valenzuela</span>
+        <span>© {new Date().getFullYear()} {profile.name}</span>
         <a href="#about">
           Built with care. Tested with purpose. <ArrowUpRight size={14} />
         </a>
@@ -705,7 +529,7 @@ function App() {
             >
               <X />
             </button>
-            <div className="eyebrow">SAMPLE CASE STUDY / 0{selected + 1}</div>
+            <div className="eyebrow">PROJECT EXPERIENCE / 0{selected + 1}</div>
             <h2>{projects[selected].title}</h2>
             <p>{projects[selected].description}</p>
             <h3>Testing approach</h3>
@@ -723,8 +547,7 @@ function App() {
               ))}
             </div>
             <p className="dialog-note">
-              Illustrative portfolio content. Replace with verified project
-              details and repository links.
+              Summary of my responsibilities as described in my résumé.
             </p>
             <button
               className="button primary"

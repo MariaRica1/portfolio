@@ -20,12 +20,13 @@ The production output is `dist/`. The build includes TypeScript checking.
 
 ## Customization
 
-- `src/main.tsx`: biography, project records, sample metrics, GitHub and LinkedIn destinations.
+- `src/portfolio.ts`: résumé-based profile, project records, skills, experience, and social destinations.
+- `src/main.tsx`: sections, project filtering, case-study dialogs, testing-scope summaries, and the email draft form.
 - `src/styles.css`: responsive layout and component styles.
 - `tailwind.config.js`: exact navy, electric blue, cyan, steel grey, cloud white, Inter, and Fira Code tokens. The valid six-digit navy `#0A1F44` is used.
 
-The project descriptions, case counts, and metrics are illustrative samples, labeled in the interface. Replace them with verified professional results. The replayable console is a browser simulation, not an actual automated test runner.
+Profile, skills, employment, education, and project responsibilities are based on Maria Rica's supplied résumé. The testing-scope section counts the listed workflow areas, focus topics, and methods for each project; these are not test coverage or performance metrics. The replayable hero console remains a labeled browser simulation, not an actual automated test runner.
 
-The contact form validates required fields and email format locally. It does not transmit or store messages; attach a form endpoint to enable delivery. GitHub and LinkedIn open the provided profile URLs.
+The contact form validates required fields and email format locally, then opens a mailto draft addressed to the résumé's email. The visitor reviews and sends it in their email app. A direct email link is also available. GitHub and LinkedIn open the provided profile URLs.
 
 Accessibility includes labeled inputs, native modal keyboard support, visible focus outlines, reduced-motion support, and a mobile navigation menu.
