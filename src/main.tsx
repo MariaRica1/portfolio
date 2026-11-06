@@ -497,7 +497,7 @@ function App() {
             <div className="form-bottom">
               <span>Let’s make something dependable.</span>
               <button type="submit" className="button primary">
-                Open email draft <ArrowUpRight size={16} />
+                Send Email <ArrowUpRight size={16} />
               </button>
             </div>
             <p className="form-demo">
